@@ -1,0 +1,99 @@
+{
+  "version": 1,
+  "reference": "docs/referencias/pedin-run-conceito.png",
+  "generator": "image_gen integrada",
+  "status": "primeiro lote; revisão de animação e pivôs pendente",
+  "assets": [
+    {
+      "key": "dad",
+      "file": "public/assets/characters/dad-sheet-v1.png",
+      "columns": 8,
+      "rows": 4,
+      "width": 1774,
+      "height": 887,
+      "frameCount": 32,
+      "atlas": "public/assets/characters/dad-sheet-v1.json",
+      "frameGeometry": "grade aproximada; pivôs e conteúdo não normalizados",
+      "selected": true
+    },
+    {
+      "key": "pedin",
+      "file": "public/assets/characters/pedin-sheet-v2.png",
+      "columns": 8,
+      "rows": 4,
+      "width": 1774,
+      "height": 887,
+      "frameCount": 32,
+      "atlas": "public/assets/characters/pedin-sheet-v2.json",
+      "frameGeometry": "grade aproximada; pivôs e conteúdo não normalizados",
+      "selected": true
+    },
+    {
+      "key": "mom",
+      "file": "public/assets/characters/mom-sheet-v1.png",
+      "columns": 8,
+      "rows": 4,
+      "width": 1774,
+      "height": 887,
+      "frameCount": 32,
+      "atlas": "public/assets/characters/mom-sheet-v1.json",
+      "frameGeometry": "grade aproximada; pivôs e conteúdo não normalizados",
+      "selected": true
+    },
+    {
+      "key": "son",
+      "file": "public/assets/characters/son-sheet-v1.png",
+      "columns": 8,
+      "rows": 4,
+      "width": 1774,
+      "height": 887,
+      "frameCount": 32,
+      "atlas": "public/assets/characters/son-sheet-v1.json",
+      "frameGeometry": "grade aproximada; pivôs e conteúdo não normalizados",
+      "selected": true
+    },
+    {
+      "key": "eldest",
+      "file": "public/assets/characters/eldest-sheet-v1.png",
+      "columns": 8,
+      "rows": 4,
+      "width": 1774,
+      "height": 887,
+      "frameCount": 32,
+      "atlas": "public/assets/characters/eldest-sheet-v1.json",
+      "frameGeometry": "grade aproximada; pivôs e conteúdo não normalizados",
+      "selected": true
+    },
+    {
+      "key": "middle",
+      "file": "public/assets/characters/middle-sheet-v1.png",
+      "columns": 8,
+      "rows": 4,
+      "width": 1774,
+      "height": 887,
+      "frameCount": 32,
+      "atlas": "public/assets/characters/middle-sheet-v1.json",
+      "frameGeometry": "grade aproximada; pivôs e conteúdo não normalizados",
+      "selected": true
+    },
+    {
+      "key": "props",
+      "file": "public/assets/props/props-sheet-v1.png",
+      "columns": 4,
+      "rows": 3,
+      "width": 1448,
+      "height": 1086,
+      "frameCount": 12,
+      "atlas": "public/assets/props/props-sheet-v1.json",
+      "frameGeometry": "grade aproximada; pivôs e conteúdo não normalizados",
+      "selected": true
+    },
+    {
+      "key": "room",
+      "file": "public/assets/backgrounds/room-v1.png",
+      "width": 1672,
+      "height": 941,
+      "status": "fundo plano inicial; camadas de parallax ainda não separadas"
+    }
+  ]
+}

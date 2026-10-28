@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="pt-BR">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pedin Run — Laboratório de animação</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#101623;color:#f5f0dd;font:16px system-ui}main{max-width:1200px;margin:auto;padding:32px}h1{color:#ffdc69}p{color:#b8c6d9;line-height:1.6}.controls{display:flex;gap:16px;flex-wrap:wrap;align-items:center;margin:24px 0}select,button,input{font:inherit}select,button{padding:10px;border-radius:8px;background:#24354d;color:white;border:1px solid #527294}#cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}article{background:#1b263a;border:1px solid #354b67;border-radius:16px;padding:20px}h2{margin:0 0 12px}.stage{display:grid;place-items:center;background:repeating-conic-gradient(#314155 0% 25%,#263448 0% 50%) 0/24px 24px;border-radius:10px;min-height:250px}.sprite{width:240px;height:240px;background-repeat:no-repeat;background-size:800% 400%;image-rendering:pixelated}a{color:#79d8e7}small{display:block;margin-top:12px;color:#b8c6d9}.warning{border-left:3px solid #ffdc69;padding-left:14px}
+</style>
+<main>
+<h1>Pedin Run! · Laboratório de animação</h1>
+<p>Primeira geração dos personagens. Confira as poses em movimento e abra a prancha completa para revisar cada quadro.</p>
+<p class="warning">Pranchas geradas ainda precisam de revisão de alinhamento, contagem de poses e continuidade antes de entrar no jogo. Esta prévia assume a grade solicitada de 8 × 4.</p>
+<div class="controls">
+<label>Linha <select id="row"><option value="0">1 · Corrida / idle da mamãe</option><option value="1">2 · Ações secundárias</option><option value="2">3 · Habilidade / deslize</option><option value="3">4 · Comemoração</option></select></label>
+<label>Velocidade <input id="fps" type="range" min="1" max="20" value="10"> <output id="speed">10 fps</output></label>
+<button id="pause" type="button">Pausar</button>
+<label>Fundo <select id="bg"><option value="">Quadriculado</option><option value="#faf3df">Claro</option><option value="#0b111c">Escuro</option></select></label>
+</div>
+<section id="cards"></section>
+<h2 style="margin-top:32px">Sala · direção do cenário</h2>
+<p>Fundo plano inicial. As camadas de parallax e a adaptação para repetição horizontal serão preparadas na integração.</p>
+<a href="../public/assets/backgrounds/room-v1.png"><img src="../public/assets/backgrounds/room-v1.png" alt="Sala em pixel art com sofá azul, janela ensolarada e piso de madeira" style="width:100%;border-radius:16px;image-rendering:pixelated"></a>
+<h2 style="margin-top:32px">Objetos, obstáculos e itens</h2>
+<p>Prancha de produção inicial · os objetos ainda precisam de recorte e ajuste de escala para o jogo.</p>
+<a href="../public/assets/props/props-sheet-v1.png"><img src="../public/assets/props/props-sheet-v1.png" alt="Blocos, urso, planta, banquinho, poça, cesto, moeda, escudo, boost, estrela, mamadeira e presente" style="width:100%;max-width:900px;background:#263448;border-radius:16px;image-rendering:pixelated"></a>
+</main>
+<script>
+const characters=[['dad','Papai'],['pedin','Pedin'],['mom','Mamãe'],['son','Filhão'],['eldest','Primogênita'],['middle','Filha do meio']];
+const clips={
+ dad:[['Corrida',0,8],['Idle',8,4],['Pulo',12,4],['Deslize · entrada',16,2],['Deslize · sustentação',18,2],['Recuperação',20,2],['Tropeço',22,2],['Alcançar',24,4],['Comemorar',28,4]],
+ pedin:[['Corrida',0,8],['Idle',8,4],['Olhar para trás',12,4],['Comemorar',16,8],['Abraço',24,8]],
+ mom:[['Idle',0,8],['Alerta',8,8],['Incentivo',16,8],['Comemorar',24,8]],
+ son:[['Corrida',0,8],['Idle',8,4],['Apontar',12,4],['Lançar boost',16,8],['Comemorar',24,8]],
+ eldest:[['Corrida',0,8],['Idle',8,8],['Criar escudo',16,8],['Comemorar',24,8]],
+ middle:[['Corrida',0,8],['Idle',8,8],['Oferecer bônus',16,8],['Comemorar',24,8]]
+};
+const cards=document.querySelector('#cards');
+for(const [key,name] of characters){
+ const card=document.createElement('article');
+ const title=document.createElement('h2');title.textContent=name;
+ const stage=document.createElement('div');stage.className='stage';
+ const sprite=document.createElement('div');sprite.className='sprite';sprite.setAttribute('role','img');sprite.setAttribute('aria-label',`Animação de ${name}`);
+ sprite.dataset.start='0';sprite.dataset.count='8';
+ const action=document.createElement('select');action.setAttribute('aria-label',`Ação de ${name}`);action.style.marginBottom='12px';
+ for(const [label,start,count] of clips[key]){const option=document.createElement('option');option.textContent=label;option.value=`${start},${count}`;action.append(option)}
+ action.onchange=()=>{const [start,count]=action.value.split(',');sprite.dataset.start=start;sprite.dataset.count=count};
+ const version=key==='pedin'?'v2':'v1';
+ sprite.style.backgroundImage=`url('../public/assets/characters/${key}-sheet-${version}.png')`;
+ stage.append(sprite);
+ const link=document.createElement('a');link.href=`../public/assets/characters/${key}-sheet-${version}.png`;link.textContent='Abrir prancha';
+ const note=document.createElement('small');note.textContent='32 quadros solicitados · revisão pendente';
+ card.append(title,action,stage,link,note);cards.append(card);
+}
+let paused=false,last=0,frame=0;
+const fps=document.querySelector('#fps'),row=document.querySelector('#row');
+fps.oninput=()=>document.querySelector('#speed').textContent=`${fps.value} fps`;
+document.querySelector('#pause').onclick=e=>{paused=!paused;e.target.textContent=paused?'Retomar':'Pausar'};
+document.querySelector('#bg').onchange=e=>document.querySelectorAll('.stage').forEach(s=>s.style.background=e.target.value);
+row.onchange=()=>document.querySelectorAll('.sprite').forEach(s=>{s.dataset.start=String(Number(row.value)*8);s.dataset.count='8'});
+function animate(now){if(!paused && now-last>=1000/Number(fps.value)){frame=(frame+1)%8;last=now}document.querySelectorAll('.sprite').forEach(s=>{const index=Number(s.dataset.start)+frame%Number(s.dataset.count);s.style.backgroundPosition=`${index%8/7*100}% ${Math.floor(index/8)/3*100}%`});requestAnimationFrame(animate)}requestAnimationFrame(animate);
+</script>
+</html>
