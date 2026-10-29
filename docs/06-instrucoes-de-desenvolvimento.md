@@ -1,5 +1,7 @@
 # Instruções para implementar o jogo
 
+> Norma visual: leia o [Style guide oficial](09-style-guide.md). Ele prevalece sobre decisões visuais anteriores deste documento e se aplica a toda a interface.
+
 ## Objetivo
 
 Construir o Pedin Run! descrito nestes documentos, começando por uma corrida completa com placeholders e evoluindo até a identidade visual da referência. Entregar um jogo funcional em navegador, com vitória e derrota, teclado e toque.

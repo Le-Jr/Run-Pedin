@@ -1,8 +1,12 @@
 # Pedin Run! — Uma corrida em família
 
-Documentação de um jogo web 2D baseado na referência visual enviada. Nome do repositório: `pega_o_pedin`.
+Jogo web 2D baseado na referência visual enviada. Nome do repositório: `pega_o_pedin`.
 
 O jogador controla o papai em uma corrida automática para alcançar o caçula Pedin, desviando de objetos da casa e recebendo ajuda da família. O tom é afetuoso, engraçado e acolhedor.
+
+## Direção visual obrigatória
+
+O [Style guide oficial](docs/09-style-guide.md) define a aparência de todo o jogo, incluindo HUD e menus. A imagem original é a referência; a interface atual ainda precisa da migração descrita no guia. [Tokens de estilo](docs/style-tokens.json).
 
 ## Documentos
 
@@ -13,6 +17,7 @@ O jogador controla o papai em uma corrida automática para alcançar o caçula P
 5. [Plano de implementação](docs/05-plano-de-implementacao.md): entregas e critérios de aceite.
 6. [Instruções de desenvolvimento](docs/06-instrucoes-de-desenvolvimento.md): orientações para implementar o jogo.
 7. [Inventário de assets](docs/07-inventario-de-assets.md): lista de produção, prioridade e critérios de entrega.
+8. [Versão jogável](docs/08-versao-jogavel.md): execução, implementação e evidências de validação.
 
 ## Decisão técnica
 
@@ -24,4 +29,17 @@ A escolha atende ao foco em sprites, animações, colisões simples e controles 
 
 ![Referência visual de Pedin Run](docs/referencias/pedin-run-conceito.png)
 
-A imagem é uma direção de arte, não um spritesheet pronto. As mecânicas e os números descritos são propostas iniciais, sujeitas a ajuste com testes de jogo. A produção dos personagens e objetos começou; veja o [guia de arte e prévia animada](art/README.md). O gameplay ainda não foi implementado.
+A imagem é uma direção de arte, não um spritesheet pronto. As mecânicas e os números descritos são propostas iniciais, sujeitas a ajuste com testes de jogo. A produção dos personagens e objetos começou; veja o [guia de arte e prévia animada](art/README.md). A primeira versão do gameplay está implementada. Build e 21 testes passaram; a validação visual no navegador ainda está pendente devido às restrições do ambiente.
+
+## Jogar localmente
+
+Requer Node.js 22.18 ou superior.
+
+```sh
+npm ci
+npm run dev
+```
+
+**Espaço / W / ↑** para pular; **S / ↓** para deslizar; **Escape / P** para pausar. No celular, use os botões na tela. Pule os brinquedos, deslize sob o banquinho e alcance o Pedin depois de 600 m, antes dos 90 segundos.
+
+`npm run build` gera `dist/`; `npm test` executa os testes; `npm run test:e2e` inicia os testes de navegador quando Chromium está disponível. Consulte o [registro da implementação](docs/08-versao-jogavel.md) para limitações e detalhes.

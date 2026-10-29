@@ -1,0 +1,12 @@
+{
+  "dad": {
+    "scale": 0.41637,
+    "frames": 16,
+    "fps": 20
+  },
+  "pedin": {
+    "scale": 0.255,
+    "frames": 16,
+    "fps": 20
+  }
+}

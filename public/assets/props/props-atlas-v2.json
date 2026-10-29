@@ -1,0 +1,253 @@
+{
+  "frames": {
+    "blocks": {
+      "frame": {
+        "x": 20,
+        "y": 80,
+        "w": 350,
+        "h": 320
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 350,
+        "h": 320
+      },
+      "sourceSize": {
+        "w": 350,
+        "h": 320
+      }
+    },
+    "bear": {
+      "frame": {
+        "x": 400,
+        "y": 60,
+        "w": 330,
+        "h": 340
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 330,
+        "h": 340
+      },
+      "sourceSize": {
+        "w": 330,
+        "h": 340
+      }
+    },
+    "plant": {
+      "frame": {
+        "x": 720,
+        "y": 45,
+        "w": 355,
+        "h": 355
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 355,
+        "h": 355
+      },
+      "sourceSize": {
+        "w": 355,
+        "h": 355
+      }
+    },
+    "stool": {
+      "frame": {
+        "x": 1110,
+        "y": 125,
+        "w": 310,
+        "h": 260
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 310,
+        "h": 260
+      },
+      "sourceSize": {
+        "w": 310,
+        "h": 260
+      }
+    },
+    "puddle": {
+      "frame": {
+        "x": 0,
+        "y": 455,
+        "w": 398,
+        "h": 260
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 398,
+        "h": 260
+      },
+      "sourceSize": {
+        "w": 398,
+        "h": 260
+      }
+    },
+    "basket": {
+      "frame": {
+        "x": 398,
+        "y": 418,
+        "w": 355,
+        "h": 290
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 355,
+        "h": 290
+      },
+      "sourceSize": {
+        "w": 355,
+        "h": 290
+      }
+    },
+    "coin": {
+      "frame": {
+        "x": 787,
+        "y": 433,
+        "w": 245,
+        "h": 275
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 245,
+        "h": 275
+      },
+      "sourceSize": {
+        "w": 245,
+        "h": 275
+      }
+    },
+    "shield": {
+      "frame": {
+        "x": 1080,
+        "y": 390,
+        "w": 368,
+        "h": 340
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 368,
+        "h": 340
+      },
+      "sourceSize": {
+        "w": 368,
+        "h": 340
+      }
+    },
+    "boost": {
+      "frame": {
+        "x": 0,
+        "y": 715,
+        "w": 400,
+        "h": 371
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 400,
+        "h": 371
+      },
+      "sourceSize": {
+        "w": 400,
+        "h": 371
+      }
+    },
+    "star": {
+      "frame": {
+        "x": 393,
+        "y": 715,
+        "w": 340,
+        "h": 340
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 340,
+        "h": 340
+      },
+      "sourceSize": {
+        "w": 340,
+        "h": 340
+      }
+    },
+    "bottle": {
+      "frame": {
+        "x": 752,
+        "y": 720,
+        "w": 280,
+        "h": 330
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 280,
+        "h": 330
+      },
+      "sourceSize": {
+        "w": 280,
+        "h": 330
+      }
+    },
+    "gift": {
+      "frame": {
+        "x": 1090,
+        "y": 720,
+        "w": 350,
+        "h": 340
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 350,
+        "h": 340
+      },
+      "sourceSize": {
+        "w": 350,
+        "h": 340
+      }
+    }
+  },
+  "meta": {
+    "app": "Pedin Run reviewed atlas",
+    "image": "props-sheet-v1.png",
+    "size": {
+      "w": 1448,
+      "h": 1086
+    },
+    "scale": "1"
+  }
+}

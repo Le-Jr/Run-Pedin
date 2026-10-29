@@ -1,0 +1,86 @@
+/* Página: só o gabinete do jogo sobre fundo escuro sólido. Telas e HUD ficam em src/ui. */
+* {
+  box-sizing:border-box;
+}
+html,body {
+  margin:0;
+  min-height:100%;
+  background:var(--ink);
+  color:var(--white);
+  color-scheme:dark;
+  font-synthesis:none;
+}
+body {
+  min-height:100vh;
+  min-height:100dvh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:max(12px,env(safe-area-inset-top)) max(12px,env(safe-area-inset-right)) max(12px,env(safe-area-inset-bottom)) max(12px,env(safe-area-inset-left));
+  font-family:'Jersey 10',monospace;
+}
+#app {
+  width:100%;
+  display:flex;
+  justify-content:center;
+}
+button,input {
+  font:inherit;
+  touch-action:manipulation;
+}
+button {
+  cursor:pointer;
+}
+canvas:focus-visible {
+  outline:2px solid var(--yellow);
+  outline-offset:-4px;
+}
+.hidden {
+  display:none!important;
+}
+.visually-hidden {
+  position:absolute;
+  width:1px;
+  height:1px;
+  overflow:hidden;
+  clip:rect(0 0 0 0);
+  white-space:nowrap;
+}
+
+/* Gabinete: moldura ciano em degraus e sombra azul dura, sem cartões nem cantos suaves. */
+.arcade {
+  position:relative;
+  width:min(100%,calc((100vh - 40px) * 16 / 9));
+  width:min(100%,calc((100dvh - 40px) * 16 / 9));
+  border:8px solid transparent;
+  border-image:var(--frame-cyan) 4 fill / 8px stretch;
+  image-rendering:pixelated;
+  /* box-shadow em vez de filtro: um filtro sobre o canvas seria recalculado a cada quadro. */
+  box-shadow:4px 4px 0 var(--blue);
+}
+.stage-wrap {
+  position:relative;
+  aspect-ratio:16/9;
+  overflow:hidden;
+  background:var(--ink);
+}
+#game {
+  position:absolute;
+  inset:0;
+}
+#game canvas {
+  display:block;
+  image-rendering:pixelated;
+}
+.arcade:fullscreen {
+  width:100vw;
+  height:100vh;
+  border:0;
+  box-shadow:none;
+  display:grid;
+  place-items:center;
+  background:var(--ink);
+}
+.arcade:fullscreen .stage-wrap {
+  width:min(100vw,calc(100vh * 16 / 9));
+}
