@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
 import { RunScene } from './game/RunScene';
 import { loadSave, writeSave } from './platform/save';
-import { AudioBus } from './platform/audio';
+import { AudioBus, type Track } from './platform/audio';
 import { hudMarkup, mountHud, paintHudArt, updateHud } from './ui/hud';
 import { dialogs, layerScreens } from './ui/screens';
 import { paintLogo } from './ui/logo';
@@ -47,6 +47,9 @@ function refresh(){
   if(m.time>=toastUntil)el('toast').classList.add('hidden');
   if(m.state===displayedState)return;
   displayedState=m.state;document.body.dataset.state=m.state;
+  // Pausa mantém a trilha atual (o contexto de áudio é suspenso pela cena).
+  const track=({ready:'menu',intro:'intro',running:'run',catching:'run',won:'win',lost:'lose'} as Record<string,Track>)[m.state];
+  if(track)audio.music(track);
   el('best').textContent=pad(save.best);
   const playing=m.state==='running'||m.state==='catching'||m.state==='paused';
   for(const [id,show] of [['menu',m.state==='ready'],['intro-bubble',m.state==='intro'],['pause',m.state==='paused'],['result',m.state==='won'||m.state==='lost'],['hud',playing],['buffs',m.state==='running'],['touch-controls',m.state==='running']] as const)el(id).classList.toggle('hidden',!show||!scene.ready);
@@ -93,11 +96,13 @@ window.addEventListener('keydown',event=>{
 });
 window.addEventListener('blur',()=>scene.pause());document.addEventListener('visibilitychange',()=>{if(document.hidden)scene.pause();});
 for(const [button,dialog] of [['settings-open','settings'],['pause-settings','settings'],['how-open','how']] as const)el(button).onclick=()=>{scene.pause();el<HTMLDialogElement>(dialog).showModal();};
-el<HTMLInputElement>('music-volume').oninput=event=>{save.music=Number((event.target as HTMLInputElement).value);writeSave(save);};
+el<HTMLInputElement>('music-volume').oninput=event=>{save.music=Number((event.target as HTMLInputElement).value);writeSave(save);audio.applyVolume();};
 el<HTMLInputElement>('effects-volume').oninput=event=>{save.effects=Number((event.target as HTMLInputElement).value);writeSave(save);};
 el<HTMLInputElement>('reduce-motion').onchange=event=>{save.reducedMotion=(event.target as HTMLInputElement).checked;writeSave(save);};
 function updateSound(){el('sound').setAttribute('aria-label',save.muted?'Ativar áudio':'Silenciar áudio');el('sound').setAttribute('aria-pressed',String(save.muted));}
-el('sound').onclick=()=>{save.muted=!save.muted;audio.unlock();writeSave(save);updateSound();};updateSound();
+el('sound').onclick=()=>{save.muted=!save.muted;audio.unlock();audio.applyVolume();writeSave(save);updateSound();};updateSound();
+// Navegadores só liberam áudio após um gesto: o primeiro toque ou tecla inicia a trilha do menu.
+for(const type of ['pointerdown','keydown'])window.addEventListener(type,()=>audio.unlock(),{once:true,capture:true});
 el('fullscreen').onclick=async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else await document.querySelector('.arcade')!.requestFullscreen();}catch{showMessage('Seu navegador não oferece tela cheia. Você pode continuar jogando aqui.');}};
 
 document.addEventListener('fullscreenchange',()=>{game.scale.refresh();fitHud();});

@@ -33,6 +33,22 @@ O build fica em `dist/`, com caminhos relativos para permitir publicação está
 
 A família completa participa: abertura com a mamãe gritando que o Pedin está fugindo, irmãos entregando boost (filhão), escudo (primogênita) e estrela (filha do meio), e comemoração de todos na vitória. A fase inicial usa apenas a sala. Detalhes visuais em `docs/09-style-guide.md`, seção 13.
 
+## Trilha sonora
+
+As cinco músicas foram fornecidas pelo projeto, geradas a partir dos prompts de trilha. Elas foram recortadas e normalizadas com ffmpeg (loudnorm, −18 LUFS integrados, pico −1,5 dBTP; MP3 128 kbps) em `public/assets/audio/`:
+
+| Arquivo | Origem e recorte | Uso |
+| --- | --- | --- |
+| `menu-v1.mp3` | Sunday_Morning_Tag, 0–85 s, sem o fade final | Menu, em loop |
+| `intro-v1.mp3` | Saturday_Morning_Cartridges, 0–3,2 s, com fade de saída | Grito da mamãe na abertura |
+| `run-v1.mp3` | Socks_on_Hardwood, 24–150,4 s, sem a introdução calma e o trecho final mais baixo | Corrida e captura, em loop |
+| `win-v1.mp3` | Hearts_Floating_Up, 0–63,4 s | Vitória, em loop |
+| `lose-v1.mp3` | One_More_Go, 0–55,9 s | Derrota, em loop |
+
+`src/platform/audio.ts` carrega cada faixa sob demanda (sem atrasar o carregamento da sala), troca de música com fade cruzado de 0,6 s e repete as faixas com sobreposição de 1,2 s, para o loop não estalar. A pausa suspende o áudio. Volume de música, silêncio e efeitos seguem as configurações; o volume padrão da música passou a 0,6. Como o navegador exige um gesto, a trilha do menu começa no primeiro toque ou tecla. A melodia sintetizada anterior foi removida; os efeitos sonoros continuam sintetizados.
+
+O mapeamento faixa → momento foi inferido pelos títulos, pelo andamento e pela energia de cada faixa. A escuta humana ainda está pendente, inclusive dos pontos de loop. Para trocar, edite `tracks` em `src/platform/audio.ts`.
+
 ## Código
 
 `src/game/domain/run.ts` concentra progressão, dano, buffs e resultado, sem depender do Phaser. `src/game/RunScene.ts` integra o mundo, os obstáculos e os sprites. `src/main.ts` controla a interface HTML e as entradas complementares. Persistência e áudio ficam em `src/platform/`.

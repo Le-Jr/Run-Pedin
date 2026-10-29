@@ -137,7 +137,7 @@ export class RunScene extends Phaser.Scene {
   }
   pause(){if(this.model.state!=='running'&&this.model.state!=='catching')return;this.beforePause=this.model.state;this.model.state='paused';this.dad.anims.pause();this.baby.anims.pause();this.audioBus.suspend();this.notify();}
   resume(){if(this.model.state!=='paused')return;this.accumulator=0;this.model.state=this.beforePause;this.dad.anims.resume();this.baby.anims.resume();this.audioBus.unlock();this.notify();}
-  menu(){this.clearThings();this.model=new RunModel();this.dad.setVelocity(0,0);this.dad.setPosition(180,GROUND);this.configureDad(false);this.dad.play('dad-idle');this.baby.setX(BABY_START).play('baby-idle');this.placeFamily('idle');this.audioBus.suspend();this.notify();}
+  menu(){this.clearThings();this.model=new RunModel();this.dad.setVelocity(0,0);this.dad.setPosition(180,GROUND);this.configureDad(false);this.dad.play('dad-idle');this.baby.setX(BABY_START).play('baby-idle');this.placeFamily('idle');this.audioBus.unlock();this.notify();}
   private clearThings(){for(const t of this.things){t.sprite.destroy();t.label?.destroy();}this.things=[];}
   private obstacle(kind:ObstacleKind,x:number){
     const frame=this.textures.getFrame('props',kind);
@@ -242,7 +242,7 @@ export class RunScene extends Phaser.Scene {
       }
     }
     for(let i=this.things.length-1;i>=0;i--){const t=this.things[i];t.label?.setX(t.sprite.x);if(t.sprite.x < -150){t.sprite.destroy();t.label?.destroy();this.things.splice(i,1);}}
-    this.model.tick(FIXED);this.audioBus.update(FIXED);
+    this.model.tick(FIXED);
     this.feedbackTime=Math.max(0,this.feedbackTime-FIXED);
     if(this.feedbackTime>0){this.dad.anims.stop();this.dadPose('row-2/06');}
     else if(this.slideTime===0){
@@ -255,7 +255,7 @@ export class RunScene extends Phaser.Scene {
   }
   private finish(){
     if(this.finished)return;this.finished=true;this.dad.setVelocity(0,0);this.dad.play(this.model.state==='won'?'dad-cheer':'dad-idle');this.baby.play('baby-cheer');
-    if(this.model.state==='won'){this.audioBus.tone(523,.35);this.audioBus.tone(659,.35);this.audioBus.tone(784,.35);}else this.audioBus.suspend();
+    if(this.model.state==='won'){this.audioBus.tone(523,.35);this.audioBus.tone(659,.35);this.audioBus.tone(784,.35);}
     this.notify();
   }
   update(_time:number,delta:number){
