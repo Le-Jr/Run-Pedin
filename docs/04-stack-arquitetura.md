@@ -67,7 +67,7 @@ Chave proposta: `pedin-run:save:v1`, contendo versão, recorde, tutorial visto e
 
 Carregar somente assets necessários à fase. Meta inicial: até 10 MB transferidos na primeira partida; medir build real antes de aceitar. Buscar 60 fps em desktop e pelo menos 30 fps no celular de referência, a definir e registrar durante a implementação. Reduzir partículas e densidade decorativa antes de comprometer leitura.
 
-## Scripts esperados após implementação
+## Scripts disponíveis
 
 - `npm run dev`: servidor local.
 - `npm run build`: verificação de tipos e build de produção em `dist/`.
@@ -75,7 +75,7 @@ Carregar somente assets necessários à fase. Meta inicial: até 10 MB transferi
 - `npm run test`: regras com Vitest.
 - `npm run test:e2e`: fluxos com Playwright.
 
-Esses scripts são requisitos futuros; ainda não existe `package.json`. Publicar `dist/` em hospedagem estática escolhida pelo responsável. Validar caminhos de assets tanto na raiz quanto no subdiretório configurado em `base`. Backend e credenciais não são necessários.
+Os scripts estão definidos em `package.json`. A implementação atual e as diferenças em relação à estrutura prevista estão em [Versão jogável](08-versao-jogavel.md). Publicar `dist/` em hospedagem estática escolhida pelo responsável. Validar caminhos de assets tanto na raiz quanto no subdiretório configurado em `base`. Backend e credenciais não são necessários.
 
 ## Fontes oficiais consultadas
 

@@ -7,6 +7,8 @@ const characters = ['dad', 'pedin', 'mom', 'son', 'eldest', 'middle'];
 const items = ['blocks', 'bear', 'plant', 'stool', 'puddle', 'basket', 'coin', 'shield', 'boost', 'star', 'bottle', 'gift'];
 const specs = characters.map(key => ({ key, file: `public/assets/characters/${key}-sheet-${key === 'pedin' ? 'v2' : 'v1'}.png`, columns: 8, rows: 4 }));
 specs.push({ key: 'props', file: 'public/assets/props/props-sheet-v1.png', columns: 4, rows: 3 });
+const spriteRegions = JSON.parse(await readFile(path.join(root, 'art/source/generated/frame-regions.json'), 'utf8'));
+const propRegions = { blocks:[20,80,350,320],bear:[400,60,330,340],plant:[720,45,355,355],stool:[1110,125,310,260],puddle:[0,455,398,260],basket:[398,418,355,290],coin:[787,433,245,275],shield:[1080,390,368,340],boost:[0,715,400,371],star:[393,715,340,340],bottle:[752,720,280,330],gift:[1090,720,350,340] };
 const manifest = { version: 1, reference: 'docs/referencias/pedin-run-conceito.png', generator: 'image_gen integrada', status: 'primeiro lote; revisão de animação e pivôs pendente', assets: [] };
 
 for (const spec of specs) {
@@ -26,7 +28,22 @@ for (const spec of specs) {
   }
   const atlasFile = spec.file.replace('.png', '.json');
   await writeFile(path.join(root, atlasFile), JSON.stringify({ frames, meta: { app: 'Pedin Run grid catalog', image: path.basename(spec.file), size: { w: width, h: height }, scale: '1' } }, null, 2) + '\n');
-  manifest.assets.push({ ...spec, width, height, frameCount: Object.keys(frames).length, atlas: atlasFile, frameGeometry: 'grade aproximada; pivôs e conteúdo não normalizados', selected: true });
+  const runtimeFrames = {};
+  if (spec.key === 'props') {
+    for (const [key, rect] of Object.entries(propRegions)) {
+      const [x, y, w, h] = rect;
+      runtimeFrames[key] = {frame:{x,y,w,h},rotated:false,trimmed:false,spriteSourceSize:{x:0,y:0,w,h},sourceSize:{w,h}};
+    }
+  } else {
+    for (const [key, rect] of Object.entries(spriteRegions[spec.key])) {
+      const column = Number(key.split('/')[1]);
+      const x = Math.round(160 + rect.x - (column + .5) * width / 8);
+      runtimeFrames[key] = {frame:rect,rotated:false,trimmed:true,spriteSourceSize:{x,y:320-rect.h,w:rect.w,h:rect.h},sourceSize:{w:320,h:320}};
+    }
+  }
+  const runtimeAtlas = path.posix.join(path.posix.dirname(spec.file), `${spec.key}-atlas-v2.json`);
+  await writeFile(path.join(root, runtimeAtlas), JSON.stringify({frames:runtimeFrames,meta:{app:'Pedin Run reviewed atlas',image:path.basename(spec.file),size:{w:width,h:height},scale:'1'}},null,2)+'\n');
+  manifest.assets.push({ ...spec, width, height, frameCount: Object.keys(frames).length, atlas: atlasFile, runtimeAtlas, frameGeometry: 'atlas inicial por grade; runtime por silhuetas com base dos pés alinhada', selected: true });
 }
 const room = 'public/assets/backgrounds/room-v1.png';
 try {

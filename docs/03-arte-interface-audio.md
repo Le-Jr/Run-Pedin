@@ -1,5 +1,7 @@
 # Arte, interface e áudio
 
+> Norma visual: leia o [Style guide oficial](09-style-guide.md). Ele prevalece sobre decisões visuais anteriores deste documento e se aplica a toda a interface.
+
 ## Direção visual
 
 Seguir a referência: pixel art vibrante, contornos escuros, detalhes azuis/cianos, corações rosa, moedas amarelas e família expressiva. Preservar os traços dos personagens: papai de camiseta verde e calça azul; mamãe de óculos e cabelo longo; Pedin de cabelo cacheado, camiseta clara e fralda; irmãos com roupas e cores distintas.

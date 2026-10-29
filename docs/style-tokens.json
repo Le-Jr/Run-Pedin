@@ -1,0 +1,14 @@
+{
+  "name": "Pedin Run — referência oficial",
+  "status": "cores normalizadas por interpretação visual; não amostragem exata",
+  "colors": {
+    "ink": "#080B12", "panel": "#101C34", "panelLight": "#1D3556",
+    "cyan": "#00CFFF", "blue": "#1673D1", "white": "#F8FAFF",
+    "yellow": "#FFE34A", "orange": "#FF9B25", "pink": "#FF64A8",
+    "magenta": "#E52CDA", "green": "#20BE65", "red": "#F0445A"
+  },
+  "layout": {"logicalWidth": 960, "logicalHeight": 540, "grid": 2, "spacing": [4, 8, 12, 16, 24], "safeMargin": 12, "touchTargetCssPx": 56},
+  "borders": {"outline": 2, "cornerStep": 4, "shadowOffset": 4, "shadowBlur": 0, "smoothRadius": 0},
+  "type": {"familyStatus": "arquivo bitmap local com acentos ainda pendente", "panelTitle": 24, "button": 16, "hudNumber": 18, "hudLabel": 12, "dialogue": 16},
+  "render": {"pixelArt": true, "roundPixels": true, "imageRendering": "pixelated", "backdropBlur": false}
+}

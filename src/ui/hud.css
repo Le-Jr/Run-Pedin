@@ -1,0 +1,344 @@
+@import '@fontsource/jersey-10/latin-400.css';
+
+/* Tokens de docs/style-tokens.json usados pelo kit de UI. */
+:root {
+  --ink:#080B12;
+  --panel:#101C34;
+  --panel-light:#1D3556;
+  --cyan:#00CFFF;
+  --white:#F8FAFF;
+  --yellow:#FFE34A;
+  --orange:#FF9B25;
+  --pink:#FF64A8;
+  --blue:#1673D1;
+  --magenta:#E52CDA;
+  --red:#F0445A;
+}
+
+/* Camada do HUD em pixels lógicos da cena (960 × 540); main.ts ajusta --u ao canvas. */
+.hud-layer {
+  position:absolute;
+  z-index:5;
+  left:0;
+  top:0;
+  width:960px;
+  height:540px;
+  transform:scale(var(--u,1));
+  transform-origin:0 0;
+  pointer-events:none;
+  container-type:size;
+  font-family:'Jersey 10',monospace;
+  color:var(--white);
+  line-height:1;
+  -webkit-font-smoothing:none;
+}
+.px-art {
+  display:block;
+  image-rendering:pixelated;
+}
+.px-icon {
+  display:block;
+  flex-shrink:0;
+}
+.px-icon svg {
+  display:block;
+  width:100%;
+  height:100%;
+}
+
+/* Placa: moldura de 9 fatias em degraus + sombra dura sem desfoque. */
+.px-plate {
+  display:flex;
+  align-items:center;
+  border:8px solid transparent;
+  border-image:var(--frame-cyan) 4 fill / 8px stretch;
+  image-rendering:pixelated;
+  filter:drop-shadow(4px 4px 0 var(--ink));
+}
+.px-plate-pink {
+  border-image-source:var(--frame-pink);
+}
+.px-plate-orange {
+  border-image-source:var(--frame-orange);
+}
+
+.hud {
+  position:absolute;
+  inset:12px 12px auto;
+  display:flex;
+  flex-direction:column;
+  align-items:stretch;
+  gap:4px;
+}
+.hud-primary {
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:12px;
+}
+.hud-life {
+  gap:10px;
+  padding:2px 6px 2px 4px;
+}
+.hud-life .px-art {
+  outline:2px solid var(--ink);
+  box-shadow:0 0 0 4px var(--cyan);
+}
+.hud-hearts {
+  display:flex;
+  gap:4px;
+}
+.hud-heart {
+  display:block;
+  width:22px;
+  height:20px;
+  background:var(--icon-heart) 0 0/100% 100%;
+  image-rendering:pixelated;
+}
+.hud-heart.empty {
+  background-image:var(--icon-heart-empty);
+}
+.hud-right {
+  display:flex;
+  align-items:flex-start;
+  gap:8px;
+}
+.hud-stats {
+  gap:16px;
+  padding:3px 4px;
+}
+.hud-stat {
+  display:flex;
+  align-items:center;
+  gap:4px;
+  white-space:nowrap;
+}
+.hud-label {
+  font-size:15px;
+  color:var(--cyan);
+  letter-spacing:1px;
+}
+.hud-stat .hud-label {
+  margin-right:4px;
+}
+.hud-number {
+  font-size:20px;
+  font-variant-numeric:tabular-nums;
+}
+.hud-small-number {
+  font-size:20px;
+  font-variant-numeric:tabular-nums;
+}
+.hud-unit {
+  font-size:15px;
+  color:var(--white);
+}
+
+.px-button {
+  position:relative;
+  display:grid;
+  place-items:center;
+  padding:0;
+  color:var(--white);
+  background:none;
+  border:8px solid transparent;
+  border-image:var(--frame-cyan) 4 fill / 8px stretch;
+  border-radius:0;
+  image-rendering:pixelated;
+  filter:drop-shadow(4px 4px 0 var(--ink));
+  pointer-events:auto;
+  cursor:pointer;
+  transition:none;
+}
+.px-button:hover {
+  border-image-source:var(--frame-yellow,var(--frame-cyan));
+}
+.px-button:active {
+  transform:translate(2px,2px);
+  filter:drop-shadow(2px 2px 0 var(--ink));
+}
+.px-button:focus-visible {
+  outline:2px solid var(--yellow);
+  outline-offset:4px;
+}
+.hud-pause {
+  width:40px;
+  height:40px;
+}
+/* Área de toque maior que o desenho: no mínimo 56 px CSS em qualquer escala. */
+.hud-pause::before {
+  content:'';
+  position:absolute;
+  inset:min(-8px,calc((40px - 56px / var(--u,1)) / 2 - 8px));
+}
+.hud-pause-icon {
+  width:10px;
+  height:12px;
+}
+
+.hud-secondary {
+  display:flex;
+  justify-content:flex-end;
+  gap:8px;
+}
+.hud-chase,.hud-time {
+  gap:4px;
+  padding:0 2px;
+}
+.hud-chase .px-art {
+  outline:2px solid var(--ink);
+}
+.hud-chase .hud-small-number {
+  min-width:40px;
+  text-align:center;
+}
+.hud-arrow {
+  width:8px;
+  height:10px;
+}
+.hud-clock {
+  width:18px;
+  height:18px;
+  margin-right:2px;
+}
+
+.hud-buffs {
+  position:absolute;
+  left:12px;
+  top:84px;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  gap:8px;
+}
+.hud-buff {
+  gap:4px;
+  padding:0 2px;
+}
+.hud-buff .hud-label {
+  color:var(--white);
+  margin:0 4px 0 2px;
+}
+
+/* Balão da mamãe: retrato com moldura ciano e balão branco com cauda em degraus. */
+.toast {
+  position:absolute;
+  z-index:2;
+  left:50%;
+  bottom:12px;
+  transform:translateX(-50%);
+  display:flex;
+  align-items:center;
+  gap:12px;
+  width:max-content;
+  max-width:min(640px,calc(100% - 24px));
+}
+.toast>.px-art {
+  flex-shrink:0;
+  outline:2px solid var(--ink);
+  box-shadow:0 0 0 4px var(--cyan),4px 4px 0 4px var(--ink);
+}
+.balloon {
+  position:relative;
+  border:8px solid transparent;
+  border-image:var(--frame-balloon) 4 fill / 8px stretch;
+  image-rendering:pixelated;
+  filter:drop-shadow(4px 4px 0 var(--ink));
+  padding:2px 6px;
+  color:var(--ink);
+  font-size:20px;
+  line-height:20px;
+}
+.balloon::before {
+  content:'';
+  position:absolute;
+  left:-16px;
+  top:50%;
+  width:10px;
+  height:10px;
+  margin-top:-5px;
+  background:var(--icon-tail) 0 0/100% 100%;
+  image-rendering:pixelated;
+}
+
+/* Camada logicamente estreita (celular): indicadores secundários centralizados. */
+@container (max-width:700px) {
+  .hud-secondary {
+    justify-content:center;
+  }
+}
+/* Camada baixa: balão em uma linha para continuar abaixo da linha do chão. */
+@container (max-height:400px) {
+  .balloon {
+    font-size:16px;
+    line-height:16px;
+  }
+}
+
+/* Controles de toque: fora da camada escalada, sempre com no mínimo 56 × 56 px CSS. */
+.touch-button {
+  position:absolute;
+  bottom:max(16px,env(safe-area-inset-bottom));
+  width:80px;
+  height:64px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  gap:4px;
+  font-family:'Jersey 10',monospace;
+  font-size:15px;
+  line-height:1;
+  letter-spacing:1px;
+  touch-action:none;
+  user-select:none;
+  -webkit-user-select:none;
+}
+.touch-button:hover {
+  border-image-source:var(--frame-cyan);
+}
+.px-button-primary,.px-button-primary:hover {
+  color:var(--ink);
+  border-image-source:var(--frame-primary);
+}
+.touch-arrow {
+  width:14px;
+  height:14px;
+}
+#slide {
+  left:max(16px,env(safe-area-inset-left));
+}
+#jump {
+  right:max(16px,env(safe-area-inset-right));
+}
+@media(max-width:600px),(max-height:550px) and (orientation:landscape) {
+  .touch-button {
+    width:72px;
+    height:56px;
+    bottom:max(8px,env(safe-area-inset-bottom));
+  }
+  #slide {
+    left:max(8px,env(safe-area-inset-left));
+  }
+  #jump {
+    right:max(8px,env(safe-area-inset-right));
+  }
+}
+/* Retrato: cena 16:9 inteira e faixa própria para os controles, fora da pista. */
+@media(max-width:600px) and (orientation:portrait) {
+  .arcade {
+    container-type:inline-size;
+  }
+  .arcade .stage-wrap {
+    aspect-ratio:auto;
+    height:calc(100cqw * 9 / 16 + 80px);
+    background:var(--ink);
+  }
+  .arcade #game {
+    inset:0 0 80px;
+    background:var(--ink);
+  }
+  .touch-button {
+    bottom:12px;
+  }
+}

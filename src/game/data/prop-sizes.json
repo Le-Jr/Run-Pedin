@@ -1,0 +1,14 @@
+{
+  "blocks": {"label":"Blocos","maxWidth":56,"maxHeight":52,"body":{"width":40,"height":38,"bottom":0}},
+  "bear": {"label":"Urso","maxWidth":64,"maxHeight":64,"body":{"width":38,"height":46,"bottom":0}},
+  "stool": {"label":"Banquinho","maxWidth":106,"maxHeight":88,"body":{"width":72,"height":26,"bottom":52}},
+  "plant": {"label":"Planta","maxWidth":68,"maxHeight":72},
+  "puddle": {"label":"Poça","maxWidth":72,"maxHeight":32},
+  "basket": {"label":"Cesto","maxWidth":64,"maxHeight":52},
+  "coin": {"label":"Moeda","maxWidth":20,"maxHeight":26},
+  "shield": {"label":"Escudo","maxWidth":44,"maxHeight":44},
+  "boost": {"label":"Boost","maxWidth":48,"maxHeight":44},
+  "star": {"label":"Estrela","maxWidth":36,"maxHeight":36},
+  "bottle": {"label":"Mamadeira","maxWidth":26,"maxHeight":40},
+  "gift": {"label":"Presente","maxWidth":44,"maxHeight":44}
+}
